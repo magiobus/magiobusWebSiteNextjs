@@ -109,7 +109,6 @@ export default function Home() {
       <Text fontSize={["6xl", "4xl", "6xl"]} my={2}>
         <b>Hola, soy <span id="magiobus">Magiobus</span></b>
       </Text>
-
       <Text mb={10} fontSize={["3xl", "xl", "3xl"]}><b>Soluciono problemas con</b> <Tag variantColor="teal"><b>{activities}</b></Tag></Text>
     </Flex>
 
