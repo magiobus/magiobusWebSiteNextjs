@@ -1,65 +1,173 @@
 import Head from 'next/head'
+import {useState, useEffect} from 'react'
+import axios from 'axios'
+import ErrorMessage from '../components/errormessage'
+import SucessMessage from '../components/sucessmessage'
+import { NextSeo } from 'next-seo';
+import { Image, Grid, Box, Button, Flex, Heading, Tag, Text,
+  Popover,
+   PopoverTrigger,
+   PopoverContent,
+   PopoverHeader,
+   PopoverBody,
+   PopoverFooter,
+   PopoverArrow,
+   PopoverCloseButton,
+   Modal,
+   ModalOverlay,
+   ModalContent,
+   ModalHeader,
+   ModalFooter,
+   ModalBody,
+   ModalCloseButton,
+   Input,
+   Textarea,
+   FormControl,
+   CircularProgress,
+   useDisclosure
+ } from "@chakra-ui/core";
+
+
+let activitiesArray = ["Tecnología 💻", "Videojuegos 🎮", "Podcasts 🔊", "Hackathones 💻", "Streaming 📺", "Código 👨🏻‍💻", "Magia 🧙‍♂️", "Video 📹", "Música 🎹"]
 
 export default function Home() {
+
+  const [activities, setActivites] = useState(activitiesArray[0])
+  const [status, setStatus] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+
+   useEffect (() =>{
+     let counter = 1;
+     setInterval(() => {
+        setActivites(activitiesArray[counter])
+        counter++
+        if(counter >= activitiesArray.length){counter = 0}
+      }, 2000);
+   }, [])
+
+
+   let handleSubmit = async (event) => {
+     event.preventDefault();
+     setStatus("loading")
+     try {
+       let response = await axios({
+         method: 'post', url: 'https://formspree.io/f/mjvpgpga',
+         data: {email: email,message: message }
+       });
+       setStatus("ok")
+       setTimeout(function(){ setStatus(""); onClose(); }, 3000);
+     } catch (e) {
+       setStatus("error")
+     }
+   }
+
+
   return (
     <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <NextSeo
+    title="Magiobus.com"
+      description="Resuelvo problemas con tecnología, podcasts, audio/video, streaming y código. ¿Necesitas un programador?"
+      canonical="https://magiobus.com"
+      openGraph={{
+        url: 'https://www.magiobus.com',
+        title: 'Magiobus.com',
+        description: 'Resuelvo problemas utilizando tecnología, podcasts, audio/video, streaming y código',
+        images: [
+          {
+            url: 'https://res-5.cloudinary.com/hjancuipz/image/upload/q_auto/v1/ghost-blog-images/magio-barbon.jpg',
+            width: 800,
+            height: 600,
+            alt: 'Og Image Alt',
+          },
+          {
+            url: 'https://res-5.cloudinary.com/hjancuipz/image/upload/q_auto/v1/ghost-blog-images/magio-barbon.jpg',
+            width: 900,
+            height: 800,
+            alt: 'Og Image Alt Second',
+          },
+          { url: 'https://res-3.cloudinary.com/hjancuipz/image/upload/q_auto/v1/ghost-blog-images/magiobus-cover-.png' }
+        ],
+        site_name: 'Magiobus.com',
+      }}
+      twitter={{
+        handle: '@magiobus',
+        site: 'http://magiobus.com',
+        cardType: 'summary_large_image',
+      }}
+    />
+    <Flex align="center" direction="column">
+      <Image
+      rounded="full"
+      size="150px"
+      src="https://res-3.cloudinary.com/hjancuipz/image/upload/q_auto/v1/ghost-blog-images/magiobus-profile-pic3.jpg"
+      alt="Magiobus"/>
 
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <Text fontSize={["6xl", "4xl", "6xl"]} my={2}>
+        <b>Hola, soy <span id="magiobus">Magiobus</span></b>
+      </Text>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+      <Text mb={10} fontSize={["3xl", "xl", "3xl"]}><b>Soluciono problemas con</b> <Tag variantColor="teal"><b>{activities}</b></Tag></Text>
+    </Flex>
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+    <Flex>
+      <Button mx={2} variantColor="pink"><a href="http://blog.magiobus.com">Blog</a></Button>
+      <Popover usePortal>
+        <PopoverTrigger>
+          <Button mx={2} variantColor="pink">Redes</Button>
+        </PopoverTrigger>
+        <PopoverContent zIndex={4} bg="gray.200">
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverBody>
+            <Button variantColor="teal" size="sm" m={1}><a href="http://facebook.com/magiobus">Facebook</a></Button>
+            <Button variantColor="teal" size="sm" m={1}><a href="http://twitter.com/magiobus">Twitter</a></Button>
+            <Button variantColor="teal" size="sm" m={1}><a href="http://instagram.com/magiobus">Instagram</a></Button>
+            <Button variantColor="teal" size="sm" m={1}><a href="https://www.linkedin.com/in/magiobus/">Linkedin</a></Button>
+            <Button variantColor="teal" size="sm" m={1}><a href="https://github.com/magiobus">Github</a></Button>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+      <Button mx={2} variantColor="pink"><a href="https://molus.co/portfolio">Portfolio</a></Button>
+      <Button mx={2} variantColor="pink" onClick={onOpen}>Contacto</Button>
+    </Flex>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
+    <Modal isOpen={isOpen} onClose={onClose}>
+       <ModalOverlay />
+       <ModalContent>
+         <ModalCloseButton />
+         <ModalBody>
+           <Flex direction="column">
+            <Text m={2} fontSize="xl" color="pink.500"><b>Contáctame!</b></Text>
+            {status === 'error' && <ErrorMessage message="Ocurrió un error mandando tu mensaje :(" />}
+            {status === 'ok' && <SucessMessage message="He recibido tu mensaje! Gracias!"/>}
+            <form  onSubmit={handleSubmit}>
+              <FormControl isRequired>
+              <Input m={1} size="lg" type="email" name="email" placeholder="Tu Email" onChange={(e) => setEmail(e.target.value)} />
+              </FormControl>
+              <FormControl>
+              <Textarea m={1} size="lg" placeholder="Tu mensaje"  isRequired onChange={(e) => setMessage(e.target.value)} />
+              </FormControl>
+              <Button my={2} width="100%" variantColor="teal"  type="submit">
+              {status === 'loading' ? ( <CircularProgress isIndeterminate size="24px" color="teal" /> ) : ( 'Enviar' )}
+              </Button>
+            </form>
+            </Flex>
+         </ModalBody>
+       </ModalContent>
+     </Modal>
 
       <style jsx>{`
+
+        #magiobus{
+          color: #6ac8cf;
+        }
+
         .container {
           min-height: 100vh;
           padding: 0 0.5rem;
@@ -102,9 +210,10 @@ export default function Home() {
           text-decoration: none;
         }
 
-        .title a {
-          color: #0070f3;
+        .title  {
+          color: #6ac8cf;
           text-decoration: none;
+          margin-bottom: 2em;
         }
 
         .title a:hover,
@@ -130,7 +239,7 @@ export default function Home() {
         }
 
         code {
-          background: #fafafa;
+          background: #6ac8cf;
           border-radius: 5px;
           padding: 0.75rem;
           font-size: 1.1rem;
