@@ -99,41 +99,41 @@ export default function Home() {
         cardType: 'summary_large_image',
       }}
     />
-    <Flex align="center" direction="column">
+    <Flex align="center" direction="column" justify="space-evenly">
       <Image
       rounded="full"
       size="150px"
       src="https://res-3.cloudinary.com/hjancuipz/image/upload/q_auto/v1/ghost-blog-images/magiobus-profile-pic3.jpg"
       alt="Magiobus"/>
 
-      <Text fontSize={["6xl", "4xl", "6xl"]} my={2}>
+      <Text fontSize={["3xl", "3xl", "6xl", "6xl"]} my={2}>
         <b>Hola, soy <span id="magiobus">Magiobus</span></b>
       </Text>
-      <Text mb={10} fontSize={["3xl", "xl", "3xl"]}><b>Soluciono problemas con</b> <Tag variantColor="teal"><b>{activities}</b></Tag></Text>
+      <Text mb={10} ml={5} fontSize={["2xl", "xl", "3xl", "3xl"]}><b>Soluciono problemas con</b> <Tag variantColor="teal"><b>{activities}</b></Tag></Text>
     </Flex>
 
-    <Flex>
-      <Button mx={2} variantColor="pink"><a href="http://blog.magiobus.com">Blog</a></Button>
+    <Flex direction={["column", "column", "column", "row"]} width="100%" justify="center" align="center">
+      <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2} ><a href="http://blog.magiobus.com">Blog</a></Button>
       <Popover usePortal>
         <PopoverTrigger>
-          <Button mx={2} variantColor="pink">Redes</Button>
+          <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2}>Redes</Button>
         </PopoverTrigger>
         <PopoverContent zIndex={4} bg="gray.200">
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>
-            <Button variantColor="teal" size="sm" m={1}><a href="http://facebook.com/magiobus">Facebook</a></Button>
-            <Button variantColor="teal" size="sm" m={1}><a href="http://twitter.com/magiobus">Twitter</a></Button>
-            <Button variantColor="teal" size="sm" m={1}><a href="http://instagram.com/magiobus">Instagram</a></Button>
-            <Button variantColor="teal" size="sm" m={1}><a href="https://www.linkedin.com/in/magiobus/">Linkedin</a></Button>
-            <Button variantColor="teal" size="sm" m={1}><a href="https://github.com/magiobus">Github</a></Button>
+            <Button variantColor="teal" size="md" m={2}><a href="http://facebook.com/magiobus">Facebook</a></Button>
+            <Button variantColor="teal" size="md" m={2}><a href="http://twitter.com/magiobus">Twitter</a></Button>
+            <Button variantColor="teal" size="md" m={2}><a href="http://instagram.com/magiobus">Instagram</a></Button>
+            <Button variantColor="teal" size="md" m={2}><a href="https://www.linkedin.com/in/magiobus/">Linkedin</a></Button>
+            <Button variantColor="teal" size="md" m={2}><a href="https://github.com/magiobus">Github</a></Button>
           </PopoverBody>
         </PopoverContent>
       </Popover>
 
 
-      <Button mx={2} variantColor="pink"><a href="https://molus.co/portfolio">Portfolio</a></Button>
-      <Button mx={2} variantColor="pink" onClick={onOpen}>Contacto</Button>
+      <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2}><a href="https://molus.co/portfolio">Portfolio</a></Button>
+      <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2} onClick={onOpen}>Contacto</Button>
     </Flex>
 
     <Modal isOpen={isOpen} onClose={onClose}>
