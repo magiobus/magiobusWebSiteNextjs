@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Link from 'next/link'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import ErrorMessage from '../components/errormessage'
@@ -28,7 +28,7 @@ import { Image, Grid, Box, Button, Flex, Heading, Tag, Text,
  } from "@chakra-ui/core";
 
 
-let activitiesArray = ["Tecnología 💻", "Videojuegos 🎮", "Podcasts 🔊", "Hackathones 💻", "Streaming 📺", "Código 👨🏻‍💻", "Magia 🧙‍♂️", "Video 📹", "Música 🎹"]
+let activitiesArray = ["Tecnología 💻", "Código 👨🏻‍💻", "Streaming 📺", "Podcasts 🔊", "Videojuegos 🎮", "Hackathones 💻", "Música 🎹", "Magia 🧙‍♂️", "Video 📹" ]
 
 export default function Home() {
 
@@ -111,9 +111,10 @@ export default function Home() {
       </Text>
       <Text mb={10} ml={5} fontSize={["2xl", "xl", "3xl", "3xl"]}><b>Soluciono problemas con</b> <Tag variantColor="teal"><b>{activities}</b></Tag></Text>
     </Flex>
-
+    
     <Flex direction={["column", "column", "column", "row"]} width="100%" justify="center" align="center">
       <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2} ><a href="http://blog.magiobus.com">Blog</a></Button>
+      <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2}><a href="https://molus.co/portfolio">Portfolio</a></Button>
       <Popover usePortal>
         <PopoverTrigger>
           <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2}>Redes</Button>
@@ -132,27 +133,32 @@ export default function Home() {
       </Popover>
 
 
-      <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2}><a href="https://molus.co/portfolio">Portfolio</a></Button>
       <Button mx={2} variantColor="pink" size={["lg"]} width={["90%", "90%", "50%", "12%"]} my={2} onClick={onOpen}>Contacto</Button>
     </Flex>
 
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} >
        <ModalOverlay />
-       <ModalContent>
+       <ModalContent  p={2} rounded="lg" >
          <ModalCloseButton />
          <ModalBody>
            <Flex direction="column">
             <Text m={2} fontSize="xl" color="pink.500"><b>Contáctame!</b></Text>
+            <Text m={2} fontSize="xl" color="pink.500" fontSize="sm">
+              Puedes encontrarme en todos lados como <Link href="https://linktr.ee/magiobus"><a><b>@magiobus</b></a></Link>!
+            </Text>
+             <Text m={2} fontSize="xl" color="pink.500" fontSize="sm">
+              Aún así, si quieres puedes escribirme directamente acá abajo ⬇️ ⬇️ ⬇️ ⬇️
+            </Text>
             {status === 'error' && <ErrorMessage message="Ocurrió un error mandando tu mensaje :(" />}
             {status === 'ok' && <SucessMessage message="He recibido tu mensaje! Gracias!"/>}
             <form  onSubmit={handleSubmit}>
               <FormControl isRequired>
-              <Input m={1} size="lg" type="email" name="email" placeholder="Tu Email" onChange={(e) => setEmail(e.target.value)} />
+              <Input mt={4} size="lg" type="email" name="email" placeholder="Tu Email" onChange={(e) => setEmail(e.target.value)} />
               </FormControl>
               <FormControl>
-              <Textarea m={1} size="lg" placeholder="Tu mensaje"  isRequired onChange={(e) => setMessage(e.target.value)} />
+              <Textarea mt={4} size="lg" placeholder="Tu mensaje"  isRequired onChange={(e) => setMessage(e.target.value)} />
               </FormControl>
-              <Button my={2} width="100%" variantColor="teal"  type="submit">
+              <Button mt={6} mb={2} width="100%" variantColor="teal"  type="submit">
               {status === 'loading' ? ( <CircularProgress isIndeterminate size="24px" color="teal" /> ) : ( 'Enviar' )}
               </Button>
             </form>
